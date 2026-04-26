@@ -1,7 +1,8 @@
-const express = require('express');
-const multer  = require('multer');
-const path    = require('path');
-const fs      = require('fs');
+const express     = require('express');
+const compression = require('compression');
+const multer      = require('multer');
+const path        = require('path');
+const fs          = require('fs');
 
 const app  = express();
 const PORT = 3000;
@@ -41,6 +42,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage, limits: { fileSize: 500 * 1024 * 1024 } });
 
+app.use(compression());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
